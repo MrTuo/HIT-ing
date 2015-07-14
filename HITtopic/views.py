@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from models import *
+from django.contrib import auth
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -27,35 +28,39 @@ def register(req):
 
 def login(req):
 	er_message=""
-	if req.session.get('name',''):
-		#return HttpResponseRedirect('/topic/index')
-		return HttpResponse('hello')
+	if req.session.get('username',''):
+		return HttpResponseRedirect('/topic/index')
 	if req.POST:
 		post=req.POST
 		logname=post["name"]
 		logpassword=post["password"]
-		if User.objects.filter(username="logname"):
+
+		if User.objects.filter(username=logname):
 			user = auth.authenticate(username = logname, password = logpassword)
 			if user is not None:
 				if user.is_active:
 					auth.login(req,user)
+					req.session['username']=logname
+					return HttpResponseRedirect('/topic/index')
 				else:
 					er_message="not active"
 			else:
 				er_message="psword error"
+
 		else :
 			er_message="not exist!"
 	return render_to_response('login.html',{'er_message':er_message})				
 
-
+def logout(req):
+	auth.logout(req)
+	return HttpResponseRedirect('/topic/index')
 
 def index(req):
-	if req.session.get('name',''):
-		username=req.session['name']
-		user=MyUser.objects.filter(name=username)
-	else:
-		username=''
-	if req.POST:
-		del req.session['name']
-		return HttpResponseRedirect('/topic/register')	
-	return render_to_response('index.html',{'user':username})
+	user=''
+	if req.session.get('username',''):
+		username=req.session['username']
+		try:
+			user=User.objects.get(username=username)
+		except:
+			pass
+	return render_to_response('index.html',{'user':user})
