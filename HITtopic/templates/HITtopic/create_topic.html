@@ -1,44 +1,25 @@
-{% load staticfiles %}
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<link rel="stylesheet" href="{% static "css/index.css" %}">
+<link rel="stylesheet" href="index.css">
 	<title>工大进行时</title>
 </head>
 <body>
+
 	<header>
 		<h1 align="center">HIT-ing</h1>
-
 	</header>
-	<form>
-		<label for="q">查找：</label>
- 		<input type="text" >
- 		<input type="submit" value="查找">
-	</form>
-	
-
-	<br/>
-    <section>
-        <article>
-            <header>
-            	<h1>作者</h1>
-                <h1>话题1</h1>
-            </header>
-            <p>话题内容......</p>
-            <footer>
-                <h5>评论（0）；赞（0）；踩（0）；2015年6月xx日xx时</h5>
-            </footer>
-            <section>
-            	<h1>评论者</h1>
-            	<p>评论内容。。。</p>
-            	<footer>
-                	<h5>评论（0）；赞（0）；踩（0）；2015年6月xx日xx时</h5>
-            	</footer>
-            </section>
-        </article>
-    </section>
-
+	<section>
+		<article>
+		<form method="post" action='.' id="topicform">
+			<label for="id_topic">话题：</label> 
+			<input type="text" name="title" id="id_topic">
+			<input type="submit" value="发表">
+		</form>
+			<textarea form="topicform" name="content" rows="3" cols="20"></textarea>
+		</article>
+	</section>
+    
     <nav>
     {% if user %}
     <h1>{{user.username}}</h1>
@@ -73,6 +54,7 @@
 		<li><a>话题内容。。。<a></li>
 		</ul>
     </aside>
+
     <footer>
         <h2>页脚</h2>
     </footer>

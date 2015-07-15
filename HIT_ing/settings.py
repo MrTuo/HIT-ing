@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HIT_ing.wsgi.application'
 
+#session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -88,7 +90,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
