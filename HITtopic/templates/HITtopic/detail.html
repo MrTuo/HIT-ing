@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block title%}话题详情{%endblock%}
+{% block article %}
+        <article>
+            <header>
+                <h1>{{topic.title}}<作者：{{topic.author.username}}></h1>
+            </header>
+            <p>{{topic.content}}</p>
+            <footer>
+                <h5>评论（{{topic.comment_num}}）；赞（{{topic.like_num}}）；
+                踩（{{topic.dislike_num}}）；{{topic.pub_date}}</h5>
+            </footer>
+            <section>
+				<form method="post" action='.' id="topicform">
+				<input type="submit" value="提交评论">
+				</form>
+				<label for="id_content">评论内容：</label> 
+				<textarea form="topicform" name="content" rows="10" cols="60"></textarea>
+                <h1>评论者</h1>
+                <p>评论内容。。。</p>
+                <footer>
+                    <h5>评论（0）；赞（0）；踩（0）；2015年6月xx日xx时</h5>
+                </footer>
+            </section>
+                    <hr/>
+        </article>
+{% endblock %}

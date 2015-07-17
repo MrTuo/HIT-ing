@@ -86,13 +86,19 @@ def index(req):
 			user=User.objects.get(username=username)
 		except:
 			pass
-	return render_to_response('index.html',{'user':user})
+	topic_list=Topic.objects.order_by('-pub_date')
+
+	return render_to_response('index.html',{'user':user,'topic_list':topic_list})
+
 
 def create_topic(req):
 	'''
 	发表新的话题
 	'''
-	user= User.objects.get(username=req.session.get('username',''))
+	user=''
+	username=req.session.get('username','')
+	if username:
+		user= User.objects.get(username=username)
 	if req.POST:
 		post=req.POST
 		new_title=post['title']
@@ -102,4 +108,22 @@ def create_topic(req):
 		print "success"
 		return HttpResponseRedirect('/topic/index')
 	return render_to_response('create_topic.html',{'user':user})
+
+def detail(req,offset):
+	'''
+	话题详情以及评论
+	'''
+	user=''
+	username=req.session.get('username','')
+	if username:
+		user= User.objects.get(username=username)
+	topic=Topic.objects.get(id=offset)
+	if req.POST:
+		post=req.POST
+		comment_content=post['content']
+		new_comment=Comment(user=user,topic=topic,content=comment_content)
+		new_comment.save()
+	return render_to_response('detail.html',{'topic':topic,'user':user})
+
+
 

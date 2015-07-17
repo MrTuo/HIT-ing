@@ -1,0 +1,65 @@
+{% load staticfiles %}
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link rel="stylesheet" href="{% static "css/index.css" %}">
+	<title>工大进行时</title>
+</head>
+<body>
+
+	<header>
+		<h1 align="center">HIT-ing</h1>
+	</header>
+	<section>
+		<article>
+		<form method="post" action='.' id="topicform">
+			<label for="id_topic">话题：</label> 
+			<input type="text" name="title" id="id_topic" size="60">
+			<input type="submit" value="发表">
+		</form>
+			<label for="id_content">内容：</label> 
+			<textarea form="topicform" name="content" rows="20" cols="60"></textarea>
+		</article>
+	</section>
+    
+    <nav>
+    {% if user %}
+    <h1>{{user.username}}</h1>
+    <ul>
+    <li><p>{{user.myuser.email}}</p></li>
+    <li><a href="/topic/create_topic/">我要发表话题</a></li>
+    <li><a href="">我的话题(888)</a></li>
+	<ul>
+		<li>话题内容。。。</li>
+		<li>话题内容。。。</li>
+		<li>话题内容。。。</li>
+	</ul>
+	<li><a href="">我的动态(888)</a></li>
+	<ul>
+		<li>评论内容。。。</li>
+		<li>评论内容。。。</li>
+		<li>评论内容。。。</li>
+	</ul>
+	</ul>
+    <h2><a href="/topic/logout">登出</a></h2>
+    {% else %}
+    <h1>亲!你还没有登陆哦，<a href="/topic/login">猛击这里</a>登陆</h1>
+    <h1>还没有账号？快<a href="/topic/register">点击这里</a> 注册吧</h1>
+    {% endif %}
+	</nav>
+
+	<aside>
+        <h3>热门话题</h3>
+        <ul>
+		<li><a>话题内容。。。<a></li>
+		<li><a>话题内容。。。<a></li>
+		<li><a>话题内容。。。<a></li>
+		</ul>
+    </aside>
+
+    <footer>
+        <h2>页脚</h2>
+    </footer>
+</body>
+</html>

@@ -20,3 +20,11 @@ class Topic(models.Model):
 	comment_num=models.IntegerField(default=0)
 	def __str__(self):
 		return self.title
+
+class Comment(models.Model):
+	user=models.ForeignKey(User,related_name='users')
+	topic=models.ForeignKey(Topic,related_name='topics')
+	pub_date=models.DateTimeField(auto_now=True)
+	content=models.TextField()
+	like_num=models.IntegerField(default=0)
+	dislike_num=models.IntegerField(default=0)
