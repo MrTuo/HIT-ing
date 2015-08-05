@@ -4,20 +4,47 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <link rel="stylesheet" href="{% static "css/index.css" %}">
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
 	<title>{% block title %}{% endblock %} </title>
 </head>
-<body>
+<body style="background-color: #7F807C">
 	<header>
-		<h1 align="center">HIT-ing</h1>
-
+    <div class="header-content">
+         <div class="navbar navbar-default" role="navigation">
+          　<div class="navbar-header">
+          　    <a href="/topic/index" class="navbar-brand">HIT-ing</a>
+          　</div>
+          <form action="." method="GET" class="navbar-form navbar-left" rol="search">
+            <div class="form-group">
+              <input class="form-control" type="text" name="q" value="{{query|escape}}" required="required" placeholder="请输入关键字">
+            </div>
+             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+           </form>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user %}
+            <li><a><span class="glyphicon glyphicon-user"></span>{{user.username}}</a></li>
+            <li style="margin-right:20px"><a href="/topic/logout">登出</a></li>
+            {% else %}
+            <li><a href="/topic/login">登录</a></li>
+            <li style="margin-right:20px"><a href="/topic/register">注册</a></li>
+            {% endif %}
+        </ul>
+        </div>
+    </div>
 	</header>
-    <hr/>
-    {% block content %}
+    <div class="content">
+        <div class="article">
+            {% block article %}{% endblock %}
+        </div>
+        <div class="aside">
+            {% block aside %}{% endblock  %}
+        </div>
+    </div>
 
-    {% endblock %}
-    <hr/>
     <footer>
         <h2>页脚</h2>
     </footer>
+    <script type="text/javascript" scr="{% static "js/bootstrap.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
 </body>
 </html>

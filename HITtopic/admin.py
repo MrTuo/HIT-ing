@@ -6,3 +6,4 @@ from HITtopic.models import *
 
 admin.site.register(MyUser)
 admin.site.register(Topic)
+admin.site.register(Comment)

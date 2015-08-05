@@ -86,9 +86,19 @@ def index(req):
 			user=User.objects.get(username=username)
 		except:
 			pass
-	topic_list=Topic.objects.order_by('-pub_date')
+	query=''
+	if req.GET:
+		query=req.GET.get('q','')
+		if query:
+			topic_list=Topic.objects.filter(title__icontains=query)
+		else:
+			topic_list=Topic.objects.order_by('-pub_date')
+	else:
+		topic_list=Topic.objects.order_by('-pub_date')
 
-	return render_to_response('index.html',{'user':user,'topic_list':topic_list})
+	return render_to_response('index.html',{'user':user,\
+											'topic_list':topic_list,\
+											'query':query})
 
 
 def create_topic(req):
@@ -118,12 +128,15 @@ def detail(req,offset):
 	if username:
 		user= User.objects.get(username=username)
 	topic=Topic.objects.get(id=offset)
+	comment_list=Comment.objects.filter(topic=topic)
 	if req.POST:
 		post=req.POST
 		comment_content=post['content']
 		new_comment=Comment(user=user,topic=topic,content=comment_content)
 		new_comment.save()
-	return render_to_response('detail.html',{'topic':topic,'user':user})
+		topic.comment_num+=1;
+		topic.save()
+	return render_to_response('detail.html',{'topic':topic,'user':user,'comment_list':comment_list})
 
 
 

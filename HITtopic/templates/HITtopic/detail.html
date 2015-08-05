@@ -3,26 +3,47 @@
 {% block title%}话题详情{%endblock%}
 {% block article %}
         <article>
-            <header>
-                <h1>{{topic.title}}<作者：{{topic.author.username}}></h1>
-            </header>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            <table border="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td width="40"><span class="glyphicon glyphicon-user"> {{topic.author.username}}</span></td>
+                        <td width="auto"><a href="/topic/detail/{{topic.id}}">{{topic.title}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="panel-body">
             <p>{{topic.content}}</p>
-            <footer>
-                <h5>评论（{{topic.comment_num}}）；赞（{{topic.like_num}}）；
-                踩（{{topic.dislike_num}}）；{{topic.pub_date}}</h5>
-            </footer>
+            </div>
+            <div class="panel-footer">
+            <span class="glyphicon glyphicon-calendar">{{topic.pub_date}}</span>  <p align="right">评论（{{topic.comment_num}}）；赞（{{topic.like_num}}）；
+                踩（{{topic.dislike_num}}）</p>
+            </div>
+        </div>
+        <div class="comment">
             <section>
-				<form method="post" action='.' id="topicform">
-				<input type="submit" value="提交评论">
-				</form>
-				<label for="id_content">评论内容：</label> 
-				<textarea form="topicform" name="content" rows="10" cols="60"></textarea>
-                <h1>评论者</h1>
-                <p>评论内容。。。</p>
+            {% if user %}
+                <form method="post" action='.' id="topicform">
+                <textarea class="form-control" form="topicform" name="content" rows="6" required></textarea>
+                <button type="submit" class="btn btn-primary btn-sm" style="float:right;">提交评论</button>
+                </form>
+                <label for="id_content">评论内容：</label> 
+            {% else %}
+                <p><a href="/topic/login">登陆</a>后可参与评论</p>
+            {% endif %}
+            
+            {% for comment in comment_list%}
+            <hr/>
+                <h6>{{comment.user.username}}</h6>
+                <p>{{comment.content}}</p>
                 <footer>
-                    <h5>评论（0）；赞（0）；踩（0）；2015年6月xx日xx时</h5>
+                    <h5>回复（{{comment.comment_num}}）；赞（{{comment.like_num}}）；踩（{{comment.dislike_num}}）；{{comment.pub_date}}</h5>
                 </footer>
+            <hr/>
+            {% endfor %}
             </section>
-                    <hr/>
+        </div>
         </article>
 {% endblock %}

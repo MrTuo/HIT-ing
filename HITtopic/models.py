@@ -7,7 +7,7 @@ class MyUser(models.Model):
 	user=models.OneToOneField(User)
 	email=models.EmailField()
 	permission=models.IntegerField()
-	def __str__(self):
+	def __unicode__(self):
 		return self.user.username
 
 class Topic(models.Model):
@@ -18,8 +18,11 @@ class Topic(models.Model):
 	like_num=models.IntegerField(default=0)
 	dislike_num=models.IntegerField(default=0)
 	comment_num=models.IntegerField(default=0)
-	def __str__(self):
+	def __unicode__(self):
 		return self.title
+	class Meta:
+		ordering=['-pub_date']
+
 
 class Comment(models.Model):
 	user=models.ForeignKey(User,related_name='users')
@@ -28,3 +31,8 @@ class Comment(models.Model):
 	content=models.TextField()
 	like_num=models.IntegerField(default=0)
 	dislike_num=models.IntegerField(default=0)
+	comment_num=models.IntegerField(default=0)
+	def __unicode__(self):
+		return self.topic.title+"--by:"+self.user.username
+	class Meta:
+		ordering=['-pub_date']

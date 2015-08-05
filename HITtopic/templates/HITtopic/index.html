@@ -1,65 +1,75 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title%}工大进行时{% endblock %}
-{% block content %}
-    <form>
-        <label for="q">查找：</label>
-        <input type="text" >
-        <input type="submit" value="查找">
-    </form>   
-    <br/>
-    <section>
-        {% block article%}
+{% block article %}
+    <section> 
+    {% if query %}
+        {% if topic_list %}
+        {% else %}
+        <p>没有找到与“{{query}}相关的话题”！</p>
+        {% endif %}
+    {% endif %}
         {% for topic in topic_list %}
         <article>
-            <header>
-                <a href="/topic/detail/{{topic.id}}"><h1>{{topic.title}}<作者：{{topic.author.username}}></h1></a>
-            </header>
-
-        <hr/>
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"> {{topic.author.username}}</span></div>
+            <div class="panel-body">
+            <table border="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td width="auto"><a href="/topic/detail/{{topic.id}}">{{topic.title}}</a></td>
+                        <td width="60" align="right" valign="middle"><span class="badge">{{topic.comment_num}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="panel-footer">
+            <span class="glyphicon glyphicon-calendar">{{topic.pub_date}}</span>
+            </div>
+        </div>
         </article>
-
         {% endfor %}
-        {% endblock %}
     </section>
 
-    <nav>
-        {% block nav %}
-            {% if user %}
-                <h1>{{user.username}}</h1>
-                <ul>
-                <li><p>{{user.myuser.email}}</p></li>
-                <li><a href="/topic/create_topic/">我要发表话题</a></li>
-                <li><a href="">我的话题(888)</a></li>
-                <ul>
-                    <li>话题内容。。。</li>
-                    <li>话题内容。。。</li>
-                    <li>话题内容。。。</li>
-                </ul>
-                <li><a href="">我的动态(888)</a></li>
-                <ul>
-                    <li>评论内容。。。</li>
-                    <li>评论内容。。。</li>
-                    <li>评论内容。。。</li>
-                </ul>
-                </ul>
-                <h2><a href="/topic/logout">登出</a></h2>
-            {% else %}
-                <h1>亲!你还没有登陆哦，<a href="/topic/login">猛击这里</a>登陆</h1>
-                <h1>还没有账号？快<a href="/topic/register">点击这里</a> 注册吧</h1>
-            {% endif %}
-        {% endblock %}
-    </nav>
 
+{% endblock %}
+{% block aside %}
     <aside>
-        {% block aside %}
+    {% if user %}
+        <h1>{{user.username}}</h1>
+        <ul>
+        {% if user.myuser.email %}
+        <li><p>邮箱：{{user.myuser.email}}</p></li>
+        {% else %}<li><p>邮箱：（未知）</p></li>
+        {% endif %}
+        <li><a href="/topic/create_topic/">我要发表话题</a></li>
+        <li><a href=""><a href="topic/mytopic">我的话题(888)</a></li>
+        <ul>
+            {% for topic in user.topic %}
+            <li>{{topic}}</li>
+            {% endfor %}
+            
+        </ul>
+        <li><a href="">我的动态(888)</a></li>
+        <ul>
+            <li>评论内容。。。</li>
+            <li>评论内容。。。</li>
+            <li>评论内容。。。</li>
+        </ul>
+        </ul>
+    {% else %}
+    <div class="sign-up-lead">
+    <a href="/topic/register"><button class="btn btn-default" >现在注册</button></a>
+    <p><a href="/topic/login">登录</a>HIT-ing后你可以畅快地与其他用户交流</p>
+    </div>
+    {% endif %}
+    </aside>
+
             <h3>热门话题</h3>
             <ul>
             <li><a>话题内容。。。<a></li>
             <li><a>话题内容。。。<a></li>
             <li><a>话题内容。。。<a></li>
             </ul>
-        {% endblock %}
-    </aside>
 {% endblock %}
 

@@ -1,10 +1,67 @@
-nav { 
-	display:block; 
-	width:25%; 
-	float:right;
-	border:solid; 
-	border-radius: 10px;  
+
+div{
+	display: block;
 }
+	
+header{
+	display: block;
+	width: 100%;
+}
+.header-content,.content,footer{
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.article{
+	width: 75%;
+	float: left;
+}
+.aside{
+	background-color: white;
+	width: 20%;
+	float: right;
+	border:1px solid #E7E7E7;
+	border-radius: 4px;
+}
+footer{
+	clear: both;
+	text-align: center;
+}
+.log-in,.sign-up{
+	width: 55%;
+	margin-left: 70px;
+}
+.title-content{
+	width: 90%;
+}
+.title-span{
+	display: inline-block;
+	float: right;
+	width: 10%;
+}
+.sign-up-form{
+	height: 240px;
+}
+.error{
+	width: 100%;
+	height: auto;
+}
+.comment{
+	width: 100%;
+	margin-top: 20px;
+	border:1px solid #E7E7E7;
+	border-radius: 4px;
+}
+.create{
+	width: 80%;
+}
+.sign-up-lead{
+	width: 60%;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/*
 section { 
 	
 	display:block; 
@@ -33,8 +90,4 @@ footer h2{
 	display: block;
 	text-align:center;
 	padding: 15px;
-}
-
-header {
-	clear: left;
-}
+}*/
