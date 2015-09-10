@@ -7,13 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('HITtopic', '0002_myuser_name'),
+        ('HITtopic', '0003_auto_20150907_1115'),
     ]
 
     operations = [
-        migrations.RenameField(
+        migrations.AddField(
             model_name='myuser',
-            old_name='name',
-            new_name='user',
+            name='avatar_name',
+            field=models.CharField(default=1, max_length=128),
+            preserve_default=False,
         ),
     ]

@@ -46,11 +46,16 @@ footer{
 	width: 100%;
 	height: auto;
 }
-.comment{
+.comment_body{
+	background-color: #F5F5F5;
 	width: 100%;
 	margin-top: 20px;
 	border:1px solid #E7E7E7;
 	border-radius: 4px;
+}
+
+.comment{
+
 }
 .create{
 	width: 80%;
@@ -61,33 +66,6 @@ footer{
 	margin-left: auto;
 	margin-right: auto;
 }
-/*
-section { 
-	
-	display:block; 
-	width:70%; 
-	float:left; 
-	border:solid;  
-	border-radius: 10px; 
-	margin-bottom: 30px;
-}
-article { 
-	display:block; 
-	margin: 10px; 
-	padding: 10px; 
 
-}
-aside { 
-	display:block;
-	width:25%;
-	clear: right;
-	float:right;
-	border:solid; 
-	border-radius: 10px; 
-}
-footer h2{ 
-	clear: both;
-	display: block;
-	text-align:center;
-	padding: 15px;
-}*/
+
+
