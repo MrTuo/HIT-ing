@@ -4,6 +4,7 @@
 {% block article %}
         <article>
         <div class="panel panel-default">
+            <div class="HIT-panel">
             <div class="panel-heading">
             <table border="0" width="100%">
                 <tbody>
@@ -15,11 +16,12 @@
             </table>
             </div>
             <div class="panel-body">
-            <p>{{topic.content|safe}}</p>
+            <pre>{{topic.content}}</pre>
             </div>
             <div class="panel-footer">
             <span class="glyphicon glyphicon-calendar">{{topic.pub_date}}</span>  <span align="right">  评论（{{topic.comment_num}}）；赞（{{topic.like_num}}）；
                 踩（{{topic.dislike_num}}）</span>
+            </div>
             </div>
         </div>
         <div class="comment_body">

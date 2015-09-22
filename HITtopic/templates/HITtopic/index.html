@@ -15,7 +15,9 @@
     {% endif %}
     {% for topic in topic_list %}
     <article>
-        <div class="panel panel-default">
+
+        <div class="panel panel-default HIT-panel">
+            <div class="HIT-panel">
             <div class="panel-heading"><span class="glyphicon glyphicon-user"> {{topic.author.username}}</span></div>
             <div class="panel-body">
                 <table border="0" width="100%">
@@ -31,7 +33,7 @@
             <div class="panel-footer">
                 <span class="glyphicon glyphicon-calendar">{{topic.pub_date}}</span>
             </div>
-        </div>
+            </div>
     </article>
     {% endfor %}
 </section>

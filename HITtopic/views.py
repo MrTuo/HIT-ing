@@ -14,6 +14,9 @@ from django.template import RequestContext
 #                     用户登录、注册和登出
 
 
+def get_hot_topic():#获取热门话题
+    hot_topic = Topic.objects.order_by('-comment_num')[:9]
+    return hot_topic
 
 def register(req):
     er_message = ''  # 返回非法输入的错误信息
@@ -37,12 +40,12 @@ def register(req):
             new_MyUser = MyUser(user=new_User, email=new_email, permission=1)
             new_MyUser.save()
             new_User.save()
-            print new_MyUser.avatar
             return HttpResponseRedirect('/topic/login')
-
+    hot_topic = get_hot_topic()
     return render_to_response('register.html', {'er_message': er_message, \
                                                 'postname': postname, \
-                                                'postemail': postemail})
+                                                'postemail': postemail,\
+                                                'hot_topic':hot_topic})
 
 
 def login(req):
@@ -70,8 +73,9 @@ def login(req):
                 er_message = "psword error"
         else:
             er_message = "not exist!"
+    hot_topic = get_hot_topic()
     return render_to_response('login.html', {'er_message': er_message, \
-                                             'postname': postname})
+                                             'postname': postname, 'hot_topic':hot_topic})
 
 
 def logout(req):
@@ -101,9 +105,7 @@ def index(req):
             topic_list = Topic.objects.all()
     else:
         topic_list = Topic.objects.all()
-
-    hot_topic = Topic.objects.order_by('-comment_num')[:9]
-    print hot_topic
+    hot_topic = get_hot_topic()
     return render_to_response('index.html', {'user': user, \
                                              'topic_list': topic_list, \
                                              'query': query, \
@@ -129,7 +131,8 @@ def create_topic(req):
         myuser.topic_num += 1
         myuser.save()
         return HttpResponseRedirect('/')
-    return render_to_response('create_topic.html', {'user': user})
+    hot_topic = Topic.objects.order_by('-comment_num')[:9]
+    return render_to_response('create_topic.html', {'user': user,'hot_topic':hot_topic})
 
 
 def detail(req, offset):
@@ -151,7 +154,8 @@ def detail(req, offset):
         topic.comment_num += 1;
         topic.save()
         return HttpResponseRedirect('/topic/detail/' + str(offset))  # 重新定向该页面防止表单重复提交
-    return render_to_response('detail.html', {'topic': topic, 'user': user, 'comment_list': comment_list})
+    hot_topic = Topic.objects.order_by('-comment_num')[:9]
+    return render_to_response('detail.html', {'topic': topic, 'user': user, 'comment_list': comment_list, 'hot_topic':hot_topic})
 
 
 def mytopic_index(req):
@@ -160,5 +164,7 @@ def mytopic_index(req):
     if username:
         user = User.objects.get(username=username)
     topic_list = Topic.objects.filter(author=user)
-    return render_to_response('index.html', {'user': user, 'topic_list': topic_list, 'from': 'mytopic'})
+    hot_topic = Topic.objects.order_by('-comment_num')[:9]
+    return render_to_response('index.html', {'user': user, 'topic_list': topic_list, 'from': 'mytopic', 'hot_topic':hot_topic})
+
 
