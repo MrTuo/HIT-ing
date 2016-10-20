@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('UTF-8')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -82,7 +86,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'mysql':{
+        'NAME': 'hit_ing',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': 'root'
     }
+
 }
 
 
@@ -101,12 +112,12 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 #media
-MEDIA_ROOT = MEDIA_ROOT = os.path.join(BASE_DIR, 'static/HITtopic/img').replace('\\', '/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/HITtopic/img').replace('\\', '/')
 
 

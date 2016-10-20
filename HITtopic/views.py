@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from models import *
 from django.contrib import auth
 from django.contrib.auth.models import User
-from upload_avatar import get_uploadavatar_context
+#from upload_avatar import get_uploadavatar_context
 from django.template import RequestContext
 
 
